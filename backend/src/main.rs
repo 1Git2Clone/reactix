@@ -1,7 +1,4 @@
-use actix_web::{
-    web::{self, get},
-    App, HttpResponse, HttpServer,
-};
+use actix_web::{web, App, HttpResponse, HttpServer};
 use openssl::ssl::{SslAcceptor, SslMethod};
 
 mod api;
@@ -26,7 +23,10 @@ async fn main() -> std::io::Result<()> {
     HttpServer::new(|| {
         App::new()
             .service(web::scope("/api").configure(api_configuration))
-            .route("/", get().to(|| async { HttpResponse::Ok().body("/") }))
+            .route(
+                "/",
+                web::get().to(|| async { HttpResponse::Ok().body("/") }),
+            )
     })
     .bind_openssl(("127.0.0.1", 4664), builder)?
     .run()
