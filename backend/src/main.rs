@@ -2,10 +2,7 @@ use actix_web::{
     web::{self, get},
     App, HttpResponse, HttpServer,
 };
-use openssl::{
-    pkey::PKeyRef,
-    ssl::{SslAcceptor, SslFiletype, SslMethod},
-};
+use openssl::ssl::{SslAcceptor, SslMethod};
 
 mod api;
 use api::api_configuration;
