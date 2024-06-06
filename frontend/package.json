@@ -1,0 +1,26 @@
+{
+  "name": "ts-rs-app-frontend",
+  "version": "1.0.0",
+  "description": "The front-end part of my full-stack app using Actix on the backend and TypeScript + HTMX on the front-end",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "npm run build:tsc",
+    "build:tsc": "tsc",
+    "build:registerCommands": "node dist/registerCommands.js",
+    "build:start": "nodemon dist/index.js",
+    "start": "npm-run-all build:tsc build:registerCommands build build:start"
+  },
+  "keywords": [
+    "htmx",
+    "typescript",
+    "actix",
+    "api"
+  ],
+  "author": "1Kill2Steal",
+  "license": "MIT",
+  "dependencies": {
+    "ts": "^0.0.0",
+    "tsx": "^4.12.0"
+  }
+}
