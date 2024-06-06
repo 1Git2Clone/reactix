@@ -22,8 +22,8 @@ async fn main() -> std::io::Result<()> {
     //    .unwrap();
     //builder.set_certificate_chain_file("cert/cert.pem").unwrap();
 
-    // WARNING: You should use a password (`builder.set_private_key_file()`) for production
-    // deploys.
+    // WARNING: You should use a password (`builder.set_private_key_file()` - refer to the note
+    // above) for production deploys.
     builder.set_certificate_chain_file("cert/cert.pem").unwrap();
 
     HttpServer::new(|| {
