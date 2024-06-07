@@ -1,7 +1,7 @@
 import { FormEvent, useState } from "react";
 import axios from "axios";
 
-function App() {
+export default function App() {
   const [message, setMessage] = useState("");
   const [username, setUsername] = useState("");
 
@@ -39,5 +39,3 @@ function App() {
     </>
   );
 }
-
-export default App;
