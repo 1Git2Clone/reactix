@@ -17,8 +17,10 @@ async fn main() -> std::io::Result<()> {
 
     let password = std::env::var("SSL_PASSWORD").expect("SSL_PASSWORD not set in `backend/.env`");
     let store_unencrypted = std::env::var("STORE_UNENCRYPTED")
-        .unwrap_or(String::from("true"))
-        .to_lowercase();
+        .unwrap_or(String::from("false"))
+        .to_lowercase()
+        .replace('\'', "")
+        .replace('"', "");
     let store_unencrypted = if store_unencrypted == "true" {
         true
     } else {
