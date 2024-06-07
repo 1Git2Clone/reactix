@@ -40,13 +40,14 @@ mkdir -p $SCRIPT_DIR/cert
 
 cd $SCRIPT_DIR/cert
 
-if [ -f key.pem ] && [ -f cert.pem ] && [ "$FORCE" = false ]; then
+if [ -f key.pem ] && [ -f cert.pem ] && [ -f nopass.pem ] && [ "$FORCE" = false ]; then
   echo "Already existing key and cert."
   exit 0
 fi
 
 rm -f key.pem
 rm -f cert.pem
+rm -f nopass.pem
 
 # Read and export all the .env file keys.
 
@@ -73,3 +74,9 @@ done < "$ENV_FILE"
 openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem \
 	-days 365 -sha256 -subj "/C=BG" \
   -passout pass:$SSL_PASSWORD
+
+# NOTE: This just remvoves the password requirement which would otherwise
+# happen if you used the normal `key.pem` file (which means it removes its
+# encryption). If you want the highest security then you should keep using the
+# normal `key.pem` file.
+openssl rsa -in key.pem -out nopass.pem -passin pass:$SSL_PASSWORD
