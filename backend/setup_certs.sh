@@ -55,6 +55,11 @@ ENV_FILE="$SCRIPT_DIR/.env"
 if [ ! -f "$ENV_FILE" ]; then
   echo "No env file found in '$ENV_FILE'. Making one..."
   touch $ENV_FILE
+
+  echo "IMPORTANT: You need to make environment variables in it."
+  echo "Follow the README.md instructions for this directory for more information."
+
+  exit 1
 fi
 
 # https://stackoverflow.com/questions/43267413/how-to-set-environment-variables-from-env-file/43267603#43267603
