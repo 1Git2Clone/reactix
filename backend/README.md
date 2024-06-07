@@ -1,6 +1,6 @@
 # Actix backend
 
-[![GH_Build_Backend Icon]][GH_Build Status][![License Icon]][LICENSE]
+[![GH_Build_Backend Icon]][GH_Build Status]&emsp;[![License Icon]][LICENSE]
 
 [GH_Build_Backend Icon]: https://img.shields.io/github/actions/workflow/status/1git2clone/reactix/rust-ci.yml?branch=main
 [GH_Build Status]: https://github.com/1git2clone/reactix/actions?query=branch%3Amaster
