@@ -90,7 +90,7 @@ program is running. And if you don't want to store the password in a `.env`
 file, you'll need to do this:
 
 ```sh
-SSL_PASSWORD=password cargo run --release # EXAMPLE ONLY! Please don't easy passwords.
+SSL_PASSWORD=password cargo run --release # EXAMPLE ONLY! Please don't use easy passwords.
 ```
 
 > [!NOTE]
