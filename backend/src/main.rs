@@ -7,6 +7,7 @@ use api::api_configuration;
 use data::cert::{CERT_KEY_PEM, CERT_PEM};
 use utils::ssl;
 
+use actix_files::Files;
 use actix_web::{web, App, HttpResponse, HttpServer};
 use dotenv::dotenv;
 use openssl::ssl::{SslAcceptor, SslMethod};
@@ -25,11 +26,7 @@ async fn main() -> std::io::Result<()> {
     HttpServer::new(|| {
         App::new()
             .service(web::scope("/api").configure(api_configuration))
-            // NOTE: This route is for debugging purposes.
-            .route(
-                "/",
-                web::get().to(|| async { HttpResponse::Ok().body("[200]: Server running.") }),
-            )
+            .service(Files::new("/", "../frontend/build").index_file("index.html"))
     })
     // It's an `https://` page.
     //

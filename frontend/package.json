@@ -1,26 +1,22 @@
 {
-  "name": "ts-rs-app-frontend",
+  "name": "frontend",
   "version": "1.0.0",
-  "description": "The front-end part of my full-stack app using Actix on the backend and TypeScript + HTMX on the front-end",
+  "private": true,
+  "description": "A minimalistic React frontend with SWC for TypeScript compilation",
   "main": "dist/index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "npm run build:tsc",
-    "build:tsc": "tsc",
-    "build:registerCommands": "node dist/registerCommands.js",
-    "build:start": "nodemon dist/index.js",
-    "start": "npm-run-all build:tsc build:registerCommands build build:start"
-  },
-  "keywords": [
-    "htmx",
-    "typescript",
-    "actix",
-    "api"
-  ],
-  "author": "1Kill2Steal",
-  "license": "MIT",
   "dependencies": {
-    "ts": "^0.0.0",
-    "tsx": "^4.12.0"
-  }
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "nx": "^19.2.1",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "serve": "^14.2.3"
+  },
+  "devDependencies": {},
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
 }

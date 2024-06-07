@@ -1,6 +1,6 @@
-use actix_web::web::ServiceConfig;
+pub mod hello;
 
-pub fn api_configuration(cfg: &mut ServiceConfig) {
+pub fn api_configuration(cfg: &mut actix_web::web::ServiceConfig) {
     use actix_web::{web, HttpResponse};
 
     cfg.service(
