@@ -24,5 +24,7 @@ export default defineConfig({
       ),
       passphrase: process.env.SSL_PASSWORD,
     },
+    port: 42210,
+    strictPort: true,
   },
 });
