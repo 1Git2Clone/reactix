@@ -3,5 +3,6 @@ target/
 node_modules/
 
 /backend/cert/*
+!/backend/cert/.gitkeep
 
 /frontend/dist/
