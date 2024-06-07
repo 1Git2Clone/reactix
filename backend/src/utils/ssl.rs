@@ -5,49 +5,26 @@ use std::{
 };
 
 use openssl::{
-    asn1::Asn1Time, hash::MessageDigest, pkey, pkey::PKey, rsa::Rsa, x509,
-    x509::extension::BasicConstraints,
+    asn1::Asn1Time,
+    hash::MessageDigest,
+    pkey::{self, PKey, Private},
+    rsa::Rsa,
+    x509::{self, extension::BasicConstraints},
 };
 
-use crate::data::cert::{CERT_KEY_PEM, CERT_PEM, NOPASS_CERT_KEY_PEM};
+use crate::data::cert::{CERT_KEY_PEM, CERT_PEM};
 
-/// Creates a X509 Certificate file and a PEM key file for it as well as an unencrypted nopass.pem
-/// file.
-///
-/// **WARNING:** Storing the unencrypted file is bad OPSEC and is disencouraged.
-///
-/// The shell equivalent of this would be
-///
-/// ```sh
-/// # NOTE: RSA4096 encryption for the certificate and key with sha256 signing and a country entry
-/// # with a 1 year (365 day) duration.
-/// openssl req -x509 -newkey rsa:4096 -keyout CERT_KEY_PEM -out CERT_PEM \
-/// -days 365 -sha256 -subj "/C=BG" \
-///   -passout pass:$SSL_PASSWORD
-///
-/// # WARNING: Unencrypting to the NOPASS_CERT_KEY_PEM file.
-/// openssl rsa -in CERT_KEY_PEM -out NOPASS_CERT_KEY_PEM -passin pass:$SSL_PASSWORD
-/// ```
+/// Creates a X509 Certificate file and a PEM key file or uses their private key if the files
+/// already exist. By returning the private key you can set it in the main function and the key
+/// will be set without requiring any additional runtime user input. As long as your environment
+/// variable key is correct.
 ///
 /// For more info you can also refer to this actix documentation:
 /// <https://actix.rs/docs/server#tls--https>
-pub fn manage_certs_files(password: String, store_unencrypted: bool) -> std::io::Result<()> {
-    // Purposefully NOT storing the NOPASS_CERT_KEY_PEM file.
+pub fn manage_certs_files(password: String) -> std::io::Result<PKey<Private>> {
     let files = [CERT_PEM, CERT_KEY_PEM].map(|x| Path::new(x));
 
     let separator = "-".repeat(80);
-
-    if !store_unencrypted && Path::new(NOPASS_CERT_KEY_PEM).exists() {
-        println!(
-            "{0}{1}{2}{1}{0}",
-            &separator,
-            "\n",
-            "No storing unencrypted passwords based on the .env variable (STORE_UNENCRYPTED)!"
-        );
-        println!("Removing existing nopass file: {}", NOPASS_CERT_KEY_PEM);
-        std::fs::remove_file(NOPASS_CERT_KEY_PEM)?;
-        println!("Done.");
-    }
 
     if files
         .iter()
@@ -55,15 +32,10 @@ pub fn manage_certs_files(password: String, store_unencrypted: bool) -> std::io:
         .collect::<Vec<_>>()
         .is_empty()
     {
-        if !store_unencrypted {
-            return Ok(());
-        }
-
         println!(
-            "No {} found. Making one based on your {} and {} files.",
-            NOPASS_CERT_KEY_PEM, CERT_KEY_PEM, CERT_PEM
+            "{0}\n{1} and {2} files already exist. Using their private key.\n{0}",
+            &separator, CERT_PEM, CERT_KEY_PEM
         );
-
         let key_data: Vec<u8> = {
             let mut buffer = Vec::new();
             File::open(CERT_KEY_PEM)?.read_to_end(&mut buffer)?;
@@ -71,11 +43,7 @@ pub fn manage_certs_files(password: String, store_unencrypted: bool) -> std::io:
         };
         let rsa = Rsa::private_key_from_pem_passphrase(&key_data, password.as_bytes())?;
         let pkey = PKey::from_rsa(rsa)?;
-        let unencrypted_key = pkey.private_key_to_pem_pkcs8()?;
-        File::create(NOPASS_CERT_KEY_PEM)?.write_all(&unencrypted_key)?;
-
-        println!("Done.");
-        return Ok(());
+        return Ok(pkey);
     }
 
     println!(
@@ -119,22 +87,5 @@ pub fn manage_certs_files(password: String, store_unencrypted: bool) -> std::io:
     cert_file.write_all(&cert.to_pem()?)?;
     println!("Done.");
 
-    if store_unencrypted {
-        // Write unencrypted private key to file
-        // WARNING: Not a safe practice for production deployments.
-        println!(
-            "{0}\nMaking {1} file\n{0}\n{2}",
-            &separator, NOPASS_CERT_KEY_PEM, "WARNING: THIS ISN'T A GOOD PRACTICE!"
-        );
-        println!("Writing to {}.", NOPASS_CERT_KEY_PEM);
-
-        let mut nopass_file = File::create(NOPASS_CERT_KEY_PEM)?;
-        let unencrypted_key = rsa.private_key_to_pem()?;
-        nopass_file.write_all(&unencrypted_key)?;
-
-        println!("Done.");
-        println!("{}", &separator);
-    }
-
-    Ok(())
+    Ok(pkey)
 }

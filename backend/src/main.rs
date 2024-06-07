@@ -4,7 +4,7 @@ pub mod utils;
 
 use api::api_configuration;
 #[allow(unused_imports)]
-use data::cert::{CERT_KEY_PEM, CERT_PEM, NOPASS_CERT_KEY_PEM};
+use data::cert::{CERT_KEY_PEM, CERT_PEM};
 use utils::ssl;
 
 use actix_web::{web, App, HttpResponse, HttpServer};
@@ -16,29 +16,10 @@ async fn main() -> std::io::Result<()> {
     dotenv().ok();
 
     let password = std::env::var("SSL_PASSWORD").expect("SSL_PASSWORD not set in `backend/.env`");
-    let store_unencrypted = std::env::var("STORE_UNENCRYPTED")
-        .unwrap_or(String::from("false"))
-        .to_lowercase()
-        .replace('\'', "")
-        .replace('"', "");
-    let store_unencrypted = if store_unencrypted == "true" {
-        true
-    } else {
-        false
-    };
-    ssl::manage_certs_files(password, store_unencrypted)?;
+    let pkey = ssl::manage_certs_files(password)?;
 
     let mut builder = SslAcceptor::mozilla_intermediate(SslMethod::tls())?;
-
-    if store_unencrypted {
-        // WARNING: It's not reccomended to store a nopass file at all for production!
-        builder.set_private_key_file(NOPASS_CERT_KEY_PEM, openssl::ssl::SslFiletype::PEM)?;
-    } else {
-        // NOTE: This is the reccomended way to implement this, however it requires you entering that
-        // SSL certificate password every time.
-        builder.set_private_key_file(CERT_KEY_PEM, openssl::ssl::SslFiletype::PEM)?;
-    }
-
+    builder.set_private_key(pkey.as_ref())?;
     builder.set_certificate_chain_file(CERT_PEM)?;
 
     HttpServer::new(|| {
