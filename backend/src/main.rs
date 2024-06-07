@@ -7,7 +7,7 @@ use api::api_configuration;
 use data::cert::{CERT_KEY_PEM, CERT_PEM};
 use utils::ssl;
 
-use actix_files::Files;
+use actix_cors::Cors;
 use actix_web::{web, App, HttpResponse, HttpServer};
 use dotenv::dotenv;
 use openssl::ssl::{SslAcceptor, SslMethod};
@@ -25,8 +25,16 @@ async fn main() -> std::io::Result<()> {
 
     HttpServer::new(|| {
         App::new()
+            .wrap(
+                Cors::default()
+                    .allow_any_origin()
+                    .allow_any_method()
+                    .allow_any_header(),
+            )
+            .route("/", web::get().to(HttpResponse::Ok))
+            .service(api::hello::hello)
+            .service(api::hello::hello_user)
             .service(web::scope("/api").configure(api_configuration))
-            .service(Files::new("/", "../frontend/build").index_file("index.html"))
     })
     // It's an `https://` page.
     //
