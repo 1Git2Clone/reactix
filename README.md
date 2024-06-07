@@ -1,6 +1,6 @@
 # Reactix
 
-[![GH_Build_Backend Icon]][GH_Build Status][![GH_Build_Frontend Icon]][GH_Build Status][![License Icon]][LICENSE]
+[![GH_Build_Backend Icon]][GH_Build Status]&emsp;[![GH_Build_Frontend Icon]][GH_Build Status]&emsp;[![License Icon]][LICENSE]
 
 [GH_Build_Backend Icon]: https://img.shields.io/github/actions/workflow/status/1git2clone/reactix/rust-ci.yml?branch=main
 [GH_Build_Frontend Icon]: https://img.shields.io/github/actions/workflow/status/1git2clone/reactix/frontend.yml?branch=main
