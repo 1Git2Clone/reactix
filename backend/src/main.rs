@@ -11,22 +11,26 @@ async fn main() -> std::io::Result<()> {
     // NOTE: This is the reccomended way to implement this, however it requires you entering that
     // SSL certificate password every time.
     //
-    //builder.set_private_key_file("cert/key.pem", openssl::ssl::SslFiletype::PEM)?;
-    //builder.set_certificate_chain_file("cert/cert.pem")?;
+    builder.set_private_key_file("cert/key.pem", openssl::ssl::SslFiletype::PEM)?;
+    builder.set_certificate_chain_file("cert/cert.pem")?;
 
     // WARNING: You should use a password (`builder.set_private_key_file()` - refer to the note
     // above) for production deploys.
-    builder.set_certificate_chain_file("cert/cert.pem")?;
+    //
+    //builder.set_certificate_chain_file("cert/cert.pem")?;
 
     HttpServer::new(|| {
-        App::new()
-            .service(web::scope("/api").configure(api_configuration))
-            .route(
-                "/",
-                web::get().to(|| async { HttpResponse::Ok().body("/") }),
-            )
+        App::new().service(web::scope("/api").configure(api_configuration))
+        // NOTE: This route is for debugging purposes.
+        //
+        //.route(
+        //    "/",
+        //    web::get().to(|| async { HttpResponse::Ok().body("Server running.") }),
+        //)
     })
-    .bind_openssl(("127.0.0.1", 4664), builder)?
+    // It's an `https://` page. Browsers will yell at you because it's a self-signed SSL certificate
+    // though.
+    .bind_openssl(("127.0.0.1", 16600), builder)?
     .run()
     .await
 }
