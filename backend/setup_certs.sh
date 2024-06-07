@@ -57,11 +57,13 @@ if [ ! -f "$ENV_FILE" ]; then
   touch $ENV_FILE
 fi
 
+# https://stackoverflow.com/questions/43267413/how-to-set-environment-variables-from-env-file/43267603#43267603
 while IFS='=' read -r key value; do
     printf -v "$key" %s "$value" && export "$key"
 done < "$ENV_FILE"
 
 # Generate SSL certificate and key.
+# https://actix.rs/docs/server#tls--https
 
 openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem \
 	-days 365 -sha256 -subj "/C=BG" \
