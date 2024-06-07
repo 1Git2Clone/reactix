@@ -24,6 +24,9 @@ jobs:
 
       - name: Build
         run: |
+          openssl req -x509 -newkey rsa:4096 -keyout backend/cert/key.pem -out \
+              backend/cert/cert.pem -days 365 -sha256 -subj "/C=BG" \
+              -passin pass:this-is-for-ci-cd-m8
           cd frontend
           npm install yarn --global
           yarn install
