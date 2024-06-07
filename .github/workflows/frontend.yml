@@ -2,9 +2,9 @@ name: NodeJS with yarn
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
   pull_request:
-    branches: [ "main" ]
+    branches: ["main"]
 
 jobs:
   build:
@@ -15,18 +15,18 @@ jobs:
         node-version: [18.x]
 
     steps:
-    - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
-      with:
-        node-version: ${{ matrix.node-version }}
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
 
-    - name: Build
-      run: |
-        cd frontend
-        npm install yarn --global
-        yarn install
-        yarn install vite --global
-        yarn install nodemon --global 
-        yarn run build
+      - name: Build
+        run: |
+          cd frontend
+          npm install yarn --global
+          yarn global add
+          yarn global add vite
+          yarn global add nodemon
+          yarn run build
