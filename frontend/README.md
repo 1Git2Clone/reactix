@@ -1,7 +1,9 @@
 # React + Tailwind + Vite + TS front-end
 
-[![License Icon]][LICENSE]
+[![GH_Build_Frontend Icon]][GH_Build Status][![License Icon]][LICENSE]
 
+[GH_Build_Frontend Icon]: https://img.shields.io/github/actions/workflow/status/1git2clone/reactix/frontend.yml?branch=main
+[GH_Build Status]: https://github.com/1git2clone/reactix/actions?query=branch%3Amaster
 [License Icon]: https://img.shields.io/badge/license-MIT-blue.svg
 [LICENSE]: LICENSE
 
