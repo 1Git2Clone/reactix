@@ -1,5 +1,10 @@
 # Reactix
 
+[![License Icon]][LICENSE]
+
+[License Icon]: https://img.shields.io/badge/license-MIT-blue.svg
+[LICENSE]: LICENSE
+
 A monorepo consisting of a front-end (written in [React](https://react.dev/)
 with [Tailwind CSS](https://tailwindcss.com/),
 [TypeScript](https://www.typescriptlang.org/) and using

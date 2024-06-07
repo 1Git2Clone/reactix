@@ -1,5 +1,10 @@
 # Actix backend
 
+[![License Icon]][LICENSE]
+
+[License Icon]: https://img.shields.io/badge/license-MIT-blue.svg
+[LICENSE]: LICENSE
+
 This is the server-side processing side of the program (we don't talk about
 react server components shhh). [Actix](https://actix.rs/) is a back-end web
 framework for Rust. The routing and all is relatively simple. One less simple

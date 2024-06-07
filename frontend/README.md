@@ -1,5 +1,10 @@
 # React + Tailwind + Vite + TS front-end
 
+[![License Icon]][LICENSE]
+
+[License Icon]: https://img.shields.io/badge/license-MIT-blue.svg
+[LICENSE]: LICENSE
+
 The front-end of this web app is _somewhat_ straight-forward.
 
 This aims to be a simple configuration as a foundation for a modern front-end
