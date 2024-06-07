@@ -6,3 +6,4 @@ edition = "2021"
 [dependencies]
 actix-web = { version = "4.6.0", features = ["openssl"] }
 openssl = { version = "0.10" }
+dotenv = "0.15.0"
