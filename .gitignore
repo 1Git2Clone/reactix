@@ -4,5 +4,4 @@ node_modules/
 
 /backend/cert/*
 
-# Not ignoring it because it's used to serve the front-end.
-!/frontend/dist/
+/frontend/dist/
