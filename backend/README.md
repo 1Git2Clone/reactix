@@ -52,7 +52,7 @@ For the non-shell people this means:
 
 After all of that information you'll find yourself in a situation like this:
 
-[Self Signed SSL picture](../assets/self_signed_ssl.png)
+![Self Signed SSL picture](../assets/self_signed_ssl.png)
 
 `MOZILLA_PKIX_ERROR_SELF_SIGNED_CERT` for Firefox or
 `NET::ERR_CERT_AUTHORITY_INVALID` on Chromium-based browsers. This error is
