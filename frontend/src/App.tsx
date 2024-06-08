@@ -1,4 +1,5 @@
 import { FormEvent, useState } from "react";
+import Header from "./Header.tsx";
 import axios from "axios";
 
 export default function App() {
@@ -8,22 +9,22 @@ export default function App() {
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault(); // Prevents the default form submission behavior
 
-    // Make the API request only if username is not empty
-    if (username.trim() !== "") {
-      axios
-        .get(`https://127.0.0.1:16600/api/hello/${username}`)
-        .then((response) => {
-          setMessage(response.data);
-        })
-        .catch((error) => {
-          console.error("Error fetching data:", error);
-        });
-    }
+    axios
+      .get(`https://127.0.0.1:16600/api/hello/${username}`)
+      .then((response) => {
+        setMessage(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
   };
   return (
     <>
-      <h1 className="text-center">Reactix</h1>
-      <form onSubmit={handleSubmit} className="flex flex-col text-center">
+      <Header />
+      <form
+        onSubmit={handleSubmit}
+        className="flex flex-col text-center items-center w1/2"
+      >
         <label htmlFor="username">Enter your username</label>
         <input
           className={"bg-rose-400 text-gray-50"}
