@@ -33,6 +33,7 @@ async fn main() -> std::io::Result<()> {
             )
             .route("/", web::get().to(HttpResponse::Ok))
             .service(api::hello::hello)
+            .service(api::hello::hello_no_user)
             .service(api::hello::hello_user)
             .service(web::scope("/api").configure(api_configuration))
     })

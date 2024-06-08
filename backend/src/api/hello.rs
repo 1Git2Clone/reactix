@@ -7,6 +7,13 @@ pub async fn hello(_req: HttpRequest) -> Result<impl Responder> {
         .body("Hello!"))
 }
 
+#[get("/api/hello/")]
+pub async fn hello_no_user(_req: HttpRequest) -> Result<impl Responder> {
+    Ok(HttpResponse::Ok()
+        .content_type(ContentType::plaintext())
+        .body("Enter a name!"))
+}
+
 #[derive(serde::Serialize)]
 struct User {
     name: String,
