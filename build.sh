@@ -28,8 +28,11 @@ if [ ! -f "cert/key.pem" ] || [ ! -f "cert/cert.pem" ]; then
   rm -rf cert/key.pem
   rm -rf cert/cert.pem
 
+  # NOTE: You need to change the /CN to your hosted netlify domain.
+  # If you want to deploy your own netlify app with it.
   openssl req -x509 -newkey rsa:4096 -keyout cert/key.pem -out \
-    cert/cert.pem -days 365 -sha256 -subj "/C=BG" -passout \
+    cert/cert.pem -days 365 -sha256 -subj \
+    "/C=BG/CN=1k2s-reactix.netlify.app" -passout \
     pass:$SSL_PASSWORD
 fi
 
