@@ -4,10 +4,10 @@ import reactRefresh from "@vitejs/plugin-react-refresh";
 import tailwindcss from "tailwindcss";
 import autoprefixer from "autoprefixer";
 // import fs from "fs";
-import path from "path";
-import dotenv from "dotenv";
+// import path from "path";
+// import dotenv from "dotenv";
 
-dotenv.config({ path: path.resolve(__dirname, "../backend/.env") });
+// dotenv.config({ path: path.resolve(__dirname, "../backend/.env") });
 
 export default defineConfig({
   plugins: [react(), reactRefresh()],
