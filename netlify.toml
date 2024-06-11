@@ -1,0 +1,11 @@
+[context.production]
+environment = { NETLIFY_EXPERIMENTAL_BUILD_RUST_SOURCE = "true" }
+
+[build]
+publish = "frontend/dist/"
+command = "chmod +x ./build.sh && ./build.sh"
+
+[[redirects]]
+from = "/*"
+to = "/"
+status = 200
