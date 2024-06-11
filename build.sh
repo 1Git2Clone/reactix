@@ -9,6 +9,25 @@ SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
 cd $SCRIPT_DIR/backend
 
+if [ ! -f ".env" ]; then
+  echo "No env file found in 'backend/.env'. Making one..."
+  touch .env
+fi
+
+# https://stackoverflow.com/questions/43267413/how-to-set-environment-variables-from-env-file/43267603#43267603
+while IFS='=' read -r key value; do
+  printf -v "$key" %s "$value" && export "$key"
+done < ".env"
+
+if [ ! $SSL_PASSWORD ] then
+  SSL_PASSWORD=$(< /dev/urandom tr -dc 'a-zA-Z0-9_!@#$%^&*' | head -c 1000)
+  echo "\nSSL_PASSWORD=${SSL_PASSWORD}" > .env
+fi
+
+openssl req -x509 -newkey rsa:4096 -keyout cert/key.pem -out \
+  cert/cert.pem -days 365 -sha256 -subj "/C=BG" -passout \
+  pass:$SSL_PASSWORD
+
 rustup toolchain install nightly &&
 	rustup default nightly
 
