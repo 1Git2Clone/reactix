@@ -18,10 +18,13 @@ cargo run --release &
 
 cd $SCRIPT_DIR/frontend
 
-npm install yarn --global # It's just faster to build with yarn.
+# It's just faster to build with yarn.
+if [ ! command -v yarn >/dev/null 2>&1 ]; then npm install yarn --global; fi
+
+if [ ! command -v vite >/dev/null 2>&1 ]; then yarn global add vite; fi
+if [ ! command -v nodemon >/dev/null 2>&1 ]; then yarn global add nodemon; fi
 
 yarn install
-yarn global add vite
-yarn global add nodemon
+
 yarn build
 yarn serve
