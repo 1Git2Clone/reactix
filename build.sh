@@ -19,14 +19,19 @@ while IFS='=' read -r key value; do
   printf -v "$key" %s "$value" && export "$key"
 done < ".env"
 
-if [ ! $SSL_PASSWORD ] then
+if [ ! $SSL_PASSWORD ]; then
   SSL_PASSWORD=$(< /dev/urandom tr -dc 'a-zA-Z0-9_!@#$%^&*' | head -c 1000)
   echo "\nSSL_PASSWORD=${SSL_PASSWORD}" > .env
 fi
 
-openssl req -x509 -newkey rsa:4096 -keyout cert/key.pem -out \
-  cert/cert.pem -days 365 -sha256 -subj "/C=BG" -passout \
-  pass:$SSL_PASSWORD
+if [ ! -f "cert/key.pem" ] || [ ! -f "cert/cert.pem" ]; then
+  rm -rf cert/key.pem
+  rm -rf cert/cert.pem
+
+  openssl req -x509 -newkey rsa:4096 -keyout cert/key.pem -out \
+    cert/cert.pem -days 365 -sha256 -subj "/C=BG" -passout \
+    pass:$SSL_PASSWORD
+fi
 
 rustup toolchain install nightly &&
 	rustup default nightly
