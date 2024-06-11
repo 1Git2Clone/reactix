@@ -1,5 +1,7 @@
 # Reactix
 
+<!-- markdownlint-disable MD013 -->
+
 [![GH_Build_Backend Icon]][GH_Build Status]&emsp;[![GH_Build_Frontend Icon]][GH_Build Status]&emsp;[![License Icon]][LICENSE]
 
 [GH_Build_Backend Icon]: https://img.shields.io/github/actions/workflow/status/1git2clone/reactix/rust-ci.yml?branch=main
@@ -7,6 +9,64 @@
 [GH_Build Status]: https://github.com/1git2clone/reactix/actions?query=branch%3Amaster
 [License Icon]: https://img.shields.io/badge/license-MIT-blue.svg
 [LICENSE]: LICENSE
+
+<!-- markdownlint-enable MD013 -->
+
+<!-- markdownlint-disable MD036 -->
+
+**Back-end**
+
+<!-- markdownlint-enable MD036 -->
+
+<!-- markdownlint-disable MD033 -->
+<p>
+  <img height="50px"
+    src="https://codeberg.org/1Kill2Steal/skill-icons/raw/branch/main/icons/Rust.svg"
+    alt="Rust"
+  />
+  <img
+    height="50px"
+    src="https://codeberg.org/1Kill2Steal/skill-icons/raw/branch/main/icons/Actix-Dark.svg"
+    alt="Actix"
+  />
+</p>
+<!-- markdownlint-enable MD033 -->
+
+<!-- markdownlint-disable MD036 -->
+
+**Front-end**
+
+<!-- markdownlint-enable MD036 -->
+
+<!-- markdownlint-disable MD033 -->
+<p>
+  <img
+    height="50px"
+    src="https://codeberg.org/1Kill2Steal/skill-icons/raw/branch/main/icons/React-Dark.svg"
+    alt="React"
+  />
+  <img
+    height="50px"
+    src="https://codeberg.org/1Kill2Steal/skill-icons/raw/branch/main/icons/Vite-Dark.svg"
+    alt="Vite"
+  />
+  <img
+    height="50px"
+    src="https://codeberg.org/1Kill2Steal/skill-icons/raw/branch/main/icons/TailwindCSS-Dark.svg"
+    alt="TailwindCSS"
+  />
+  <img
+    height="50px"
+    src="https://codeberg.org/1Kill2Steal/skill-icons/raw/branch/main/icons/TypeScript.svg"
+    alt="TypeScript"
+  />
+  <img
+    height="50px"
+    src="https://codeberg.org/1Kill2Steal/skill-icons/raw/branch/main/icons/HTML.svg"
+    alt="HTML"
+  />
+</p>
+<!-- markdownlint-enable MD033 -->
 
 A monorepo consisting of a front-end (written in [React](https://react.dev/)
 with [Tailwind CSS](https://tailwindcss.com/),
