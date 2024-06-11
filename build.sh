@@ -54,4 +54,4 @@ if [ ! command -v nodemon >/dev/null 2>&1 ]; then yarn global add nodemon; fi
 yarn install
 
 yarn build
-yarn serve
+# yarn serve
